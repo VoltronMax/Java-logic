@@ -1,0 +1,23 @@
+# Archivos y carpetas de VSCode
+.vscode/
+
+# Archivos de compilación Java
+*.class
+*.jar
+*.war
+
+# Carpetas generadas por compiladores o IDEs
+/bin/
+/build/
+/out/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Otros archivos temporales
+*.log
+*.tmp
+
+# Archivos del sistema operativo
+desktop.ini
