@@ -56,6 +56,24 @@ public class controlClientes {
     }
 
     private static void buscarClientePorNombre(Scanner input) {
+        System.out.println("Ingrese el cliente a buscar");
+        String clienteBuscar = input.nextLine();
+        boolean encontrado = false;
+
+        for (int i=0; i<clientes; i++){
+            if (clienteBuscar.equalsIgnoreCase(nombreCliente[i])){
+                System.out.println("nombre: " + nombreCliente[i]);
+                System.out.println("Correo: " + correoElectronico[i]);
+                System.out.println("Telefono: " + numeroTelefono[i]);
+                encontrado = true;
+            }
+        }
+            if (!encontrado){
+                System.out.println("Usuario no encontrado");
+            
+        }
+        
+        
 
 
     }
