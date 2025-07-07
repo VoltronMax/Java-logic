@@ -4,7 +4,8 @@ public class gestionProductos {
         static int productos;
         static double[]precioProducto;
         static String[]nombreProducto;
-        static int[]stockProducto; 
+        static int[]stockProducto;
+        static boolean productoRegistrado = false;
 
     public static void main (String []args){
         var input = new Scanner (System.in);
@@ -66,15 +67,24 @@ public class gestionProductos {
     }
 
     private static void mostrarValorTotalInventario() {
+            if (!productoRegistrado){
+        System.out.println("No se han registrado productos");
+        } else {
+
         double total= 0;
         for (int i=0; i<productos; i++){
             total+=precioProducto[i]*stockProducto[i];
 
         }
         System.out.printf("Valor total del inventario : $%.2f\n", total);
+        }
+
     }
 
     private static void mostrarProductoMasCostoso() {
+        if (!productoRegistrado){
+        System.out.println("No se han registrado productos");
+        } else {
 
         var may = 0.0;
         int i;
@@ -96,9 +106,15 @@ public class gestionProductos {
                 System.out.println("==========================================");
             }
         }
+        }
+        
+
     }
 
     private static void mostrarStockBajo() {
+            if (!productoRegistrado){
+            System.out.println("No se han registrado productos");
+        } else {
         int i;
         System.out.println(".:Productos con stock bajo (menos de 5 unidades):.");
         var hayStockBajo = false;
@@ -111,6 +127,7 @@ public class gestionProductos {
                 System.out.println("Producto #" + (i+1));
                 System.out.println("Nombre: " + nombreProducto[i]);
                 System.out.println("Precio: $" + precioProducto[i]);
+                System.out.println("Stock disponible: " + stockProducto[i]);
                 System.out.println("==========================================\n");
                 
                 }
@@ -120,9 +137,12 @@ public class gestionProductos {
             }
         }
 
-    
+        }
 
     private static void mostrarProductos() {
+        if (!productoRegistrado){
+            System.out.println("No se han registrado productos");
+        } else {
         System.out.println(".:Resumen de productos registrados:.\n");
         int i;
 
@@ -134,6 +154,8 @@ public class gestionProductos {
             System.out.println("Stock del producto: " + stockProducto[i]);
             System.out.println("===============================================\n");
         }
+        }
+
     }
 
     private static void registrarProductos(Scanner input) {
@@ -141,15 +163,15 @@ public class gestionProductos {
             System.out.println("Ingrese cuantos productos va a registrar");
         productos = input.nextInt();
         input.nextLine();
+        if (productos<=0) {
+            System.out.println("Debe ingresar al menos un producto");
+        }
+
+        } while (productos<=0);
 
         nombreProducto = new String[productos];
         precioProducto = new double[productos];
         stockProducto = new int[productos];
-
-        if (productos<0) {
-            System.out.println("Debe ingresar al menos un producto");
-        }
-        } while (productos<0);
 
         int i;
         for (i=0; i<productos; i++){
@@ -184,6 +206,7 @@ public class gestionProductos {
         }
 
         System.out.println("\n.:Registro completado con exito:.\n");
+        productoRegistrado = true;
         
     }
     
