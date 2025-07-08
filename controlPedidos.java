@@ -7,6 +7,7 @@ public class controlPedidos {
     static int[]cantidadSolicitada;
     static boolean pedidoRegistrado = false;
     static double[]totalProducto;
+    static double valorGeneral;
 
 public static void main (String args[]){
     var input = new Scanner (System.in);
@@ -50,9 +51,12 @@ private static void mostrarMenu(Scanner input) {
 
             case 5:
             valorTotalGeneral();
+            break;
 
             case 6:
             pedidoPorNombre(input);
+            break;
+
             default:
             System.out.println("Opcion invalida");
                 break;
@@ -151,7 +155,7 @@ private static void valorTotal() {
         totalProducto = new double[registro];
         for (int i = 0; i<registro; i++){
 
-            totalProducto[i]+=precioUnitario[i]*cantidadSolicitada[i];
+            totalProducto[i]=precioUnitario[i]*cantidadSolicitada[i];
             System.out.println("Pedido #" + (i+1));
             System.out.printf("Total: %.2f", totalProducto[i]);
             System.out.println("");
@@ -163,21 +167,62 @@ private static void pedidoMayorTotal() {
         if (!pedidoRegistrado){
         System.out.println("No se han registrado pedidos");
     } else {
+
+        double mayor = totalProducto[0];
+        int posicionMayor = 0;
+
+
         for (int i=0; i<registro; i++){
-            if (totalProducto[i]>totalProducto[0]) {
-                
-                
+            if(totalProducto[i]>=mayor){
+                mayor = totalProducto[i];
+                posicionMayor = i;
             }
         }
+
+        System.out.println("\n.:Producto con mayor valor:");
+        System.out.println("Cliente: " + nombreCliente[posicionMayor]);
+        System.out.println("Producto: " + nombreProducto[posicionMayor]);
+        System.out.println("Cantidad: " + cantidadSolicitada[posicionMayor]);
+        System.out.println("Precio unitario: " + precioUnitario[posicionMayor]);
+        System.out.printf("Total: $%.2f\n", mayor);
+    }
+}
+private static void valorTotalGeneral() {
+        if (!pedidoRegistrado){
+        System.out.println("No se han registrado pedidos");
+    } else {
+        for (int i=0; i<registro; i++){
+            valorGeneral += precioUnitario[i]*cantidadSolicitada[i];
+        }
+
+        System.out.println("Total del inventario: " + valorGeneral);
+
     }
 
 }
-private static void valorTotalGeneral() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'valorTotalGeneral'");
-}
 private static void pedidoPorNombre(Scanner input) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'pedidoPorNombre'");
+        boolean clienteEncontrado = false;
+
+        if (!pedidoRegistrado){
+        System.out.println("No se han registrado pedidos");
+    } else {
+        System.out.println("Ingrese el nombre del cliente para buscar el pedido");
+        String cliente = input.nextLine();
+
+        for (int i = 0; i<registro; i++){
+            if (cliente.equalsIgnoreCase(nombreCliente[i])){
+                clienteEncontrado = true;
+                System.out.println("\nCliente encontrado:");
+                System.out.println("Nombre: " + nombreCliente[i]);
+                System.out.println("Producto solicitado: " + nombreProducto[i]);
+                System.out.println("Cantidad solicitada: " + cantidadSolicitada[i]);
+                System.out.println("Precio unitario: " + precioUnitario[i]);
+        }
+    }
+        if (!clienteEncontrado){
+        System.out.println("El pedido no fue encontrado");
+        }
+    }
+    }
 }
-}
+
